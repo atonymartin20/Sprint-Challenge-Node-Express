@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
     const { id } = req.params;
     projectsDB.get(id)
         .then((project) => {
-            if(project) {
+            if (project) {
                 res.json(project);
             }
             else {
@@ -39,7 +39,7 @@ router.get('/actions/:projectId', (req, res) => {
     const { projectId } = req.params;
     projectsDB.getProjectActions(projectId)
         .then((projectActions) => {
-            if(projectActions) {
+            if (projectActions) {
                 res.json(projectActions);
             }
             else {
@@ -50,13 +50,13 @@ router.get('/actions/:projectId', (req, res) => {
 
         .catch(err => {
             res.status(500)
-                .json({ error: "Project information could not be retrieved"})
+                .json({ error: "Project information could not be retrieved" })
         })
 })
 
 router.post('/', (req, res) => {
     const project = req.body;
-    if(project) {
+    if (project) {
         projectsDB.insert(project).then(projectId => {
             projectsDB.get(projectId.id)
                 .then(project => {
@@ -64,10 +64,10 @@ router.post('/', (req, res) => {
                 });
         })
 
-        .catch(err => {
-            res.status(500)
-                .json({ error: "There was an error adding project to the database." })
-        })
+            .catch(err => {
+                res.status(500)
+                    .json({ error: "There was an error adding project to the database." })
+            })
     }
 
     else {
@@ -80,12 +80,12 @@ router.delete('/:id', (req, res) => {
     const { id } = req.params;
     projectsDB.remove(id)
         .then(count => {
-            if(count) {
+            if (count) {
                 res.json({ message: "Project removed succesfully." });
             }
             else {
                 res.status(404)
-                    .json({ message: "The project with the specified ID does not exist. "});
+                    .json({ message: "The project with the specified ID does not exist. " });
             }
         })
 
@@ -98,10 +98,10 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const project = req.body;
     const { id } = req.params;
-    if(project.name) {
+    if (project.name) {
         projectsDB.update(id, project)
             .then(count => {
-                if(count) {
+                if (count) {
                     projectsDB.get(id)
                         .then(project => {
                             res.json(project);
@@ -110,14 +110,14 @@ router.put('/:id', (req, res) => {
 
                 else {
                     res.status(404)
-                        .json({ message: "The project with the specified ID does not exist. "});
+                        .json({ message: "The project with the specified ID does not exist. " });
                 }
-        })
+            })
 
-        .catch(err => {
-            res.status(500)
-                .json({ error: "The project info could not be modified." });
-        })
+            .catch(err => {
+                res.status(500)
+                    .json({ error: "The project info could not be modified." });
+            })
     }
 
     else {

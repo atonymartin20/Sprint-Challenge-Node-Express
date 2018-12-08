@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
     const { id } = req.params;
     actionsDB.get(id)
         .then((action) => {
-            if(action) {
+            if (action) {
                 res.json(action);
             }
             else {
@@ -37,7 +37,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     const action = req.body;
-    if(action) {
+    if (action) {
         actionsDB.insert(action).then(actionId => {
             actionsDB.get(actionId.id)
                 .then(action => {
@@ -45,10 +45,10 @@ router.post('/', (req, res) => {
                 })
         })
 
-        .catch(err => {
-            res.status(500)
-                .json({ error: "There was an error adding action project to the database." })
-        })
+            .catch(err => {
+                res.status(500)
+                    .json({ error: "There was an error adding action project to the database." })
+            })
     }
 
     else {
@@ -61,7 +61,7 @@ router.delete('/:id', (req, res) => {
     const { id } = req.params;
     actionsDB.remove(id)
         .then(count => {
-            if(count) {
+            if (count) {
                 res.json({ message: "Action removed succesfully." });
             }
 
@@ -80,10 +80,10 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const action = req.body;
     const { id } = req.params;
-    if(action.description) {
+    if (action.description) {
         actionsDB.update(id, action)
             .then(count => {
-                if(count) {
+                if (count) {
                     actionsDB.get(id)
                         .then(action => {
                             res.json(action);
@@ -92,14 +92,14 @@ router.put('/:id', (req, res) => {
 
                 else {
                     res.status(404)
-                        .json({ message: "The action with the specified ID does not exist. "});
+                        .json({ message: "The action with the specified ID does not exist. " });
                 }
             })
 
-        .catch(err => {
-            res.status(500)
-                .json({ error: "The action info could not be modified." });
-        })
+            .catch(err => {
+                res.status(500)
+                    .json({ error: "The action info could not be modified." });
+            })
     }
 
     else {
