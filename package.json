@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "start": "nodemon index.js"
   },
   "repository": "https://github.com/atonymartin20/Sprint-Challenge-Node-Express.git",
   "author": "Alex Martin <atonymartin20@yahoo.com>",
